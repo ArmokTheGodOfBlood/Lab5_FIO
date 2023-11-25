@@ -9,8 +9,6 @@ internal class Program
         WebDriver driver = new FirefoxDriver();
         driver.Navigate().GoToUrl("https://www.globalsqa.com/angularJs-protractor/SimpleCalculator/");
         CalcPage page = new CalcPage(driver);
-        Console.WriteLine(page.aField.GetAttribute("value"));
-        Console.WriteLine(page.bField.GetAttribute("value"));
         driver.Close();
     }
 }
@@ -22,10 +20,13 @@ public class CalcPage
     {
         this.driver = driver;
 
-        aField = driver.FindElement(By.CssSelector("[ng-model='a']"));
-        bField = driver.FindElement(By.CssSelector("[ng-model='b']"));
+        IWebElement aElm = driver.FindElement(aField);
+        IWebElement bElm = driver.FindElement(aField);
+
+        Console.WriteLine(aElm.GetAttribute("value"));
+        Console.WriteLine(bElm.GetAttribute("value"));
     }
 
-    public IWebElement aField;
-    public IWebElement bField;
+    public By aField = By.CssSelector("[ng-model='a']");
+    public By bField = By.CssSelector("[ng-model='b']");
 }
